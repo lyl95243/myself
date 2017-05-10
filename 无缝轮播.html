@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝轮播</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        .content{
+            margin: 0 auto;
+            width: 1000px;
+            height: 560px;
+            overflow: hidden;
+            position: relative;
+        }
+        .banner_wrap{
+            position: absolute;
+            top:0;
+            left: 0;
+            margin: 0 auto;
+            width: 5000px;
+            height:560px;
+        }
+        .banner{
+            float: left;
+            height: 560px;
+            width: 1000px;
+        }
+        .banner img{
+            height: 100%;
+            width: 100%;
+        }
+        .banner_btn div{
+            font-size: 80px;
+            font-weight: 900;
+            color: white;
+            position: absolute;
+            top: 50%;
+            cursor: pointer;
+            margin-top: -40px;
+        }
+        .next{
+            right: 30px;
+        }
+        .prev{
+            left: 30px;
+        }
+        .dian_btn{
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -35px;
+        }
+        .dian_btn ul li{
+            width: 15px;
+            height: 15px;
+            list-style: none;
+            border-radius: 100%;
+            background: white;
+            float: left;
+            margin-right: 15px;
+        }
+        .dian_btn ul .bian{
+            background: orange;
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var i=0,k=0;
+            $(".dian_btn ul li").click(function () {
+                i=$(this).index()
+                k=i;
+                $(".banner_wrap").animate({
+                    left:i*"-1000"+"px",
+                })
+                $(".dian_btn ul li").eq(i).addClass("bian").siblings().removeClass("bian")
+            })
+            function next() {
+                i++;k++
+                if(i>4){
+                    i=1
+                    $(".banner_wrap").animate({
+                        left:0,
+                    },0)
+                }
+                if(k>3){
+                    k=0;
+                }
+                $(".banner_wrap").animate({
+                    left:i*"-1000"+"px",
+                },500)
+                $(".dian_btn ul li").eq(k).addClass("bian").siblings().removeClass("bian")
+            }
+            $(".next").click(function () {
+               next()
+            })
+            var timer=setInterval(function () {
+                next()
+            },2000)
+            $(".content").hover(function () {
+                clearInterval(timer)
+            },function () {
+                timer=setInterval(function () {
+                    next()
+                },2000)
+            })
+            $(".prev").click(function () {
+                i--;k--;
+                if(i<0){
+                    i=$(".dian_btn ul li").length-1;
+                    $(".banner_wrap").animate({
+                        left:(i+1)*"-1000"+"px",
+                    },0)
+                }
+                if(k<0){
+                    k=$(".dian_btn ul li").length-1;
+                }
+                $(".banner_wrap").animate({
+                    left:i*"-1000"+"px",
+                },500)
+                $(".dian_btn ul li").eq(k).addClass("bian").siblings().removeClass("bian")
+            })
+        })
+
+////        不能加小点的那种
+//        $(function () {
+//            function next() {
+//                $(".banner_wrap").animate({left:-1000},400,function () {
+//                    $(".banner_wrap").animate({left:0},0)
+//                    $(".banner_wrap .banner:first-child").appendTo(".banner_wrap")
+//                })
+//            }
+//            $(".next").click(function () {
+//                 next()
+//            })
+//            var timer=setInterval(function () {
+//                next()
+//            },2000)
+//            $(".content").hover(function () {
+//                clearInterval(timer)
+//            },function () {
+//                timer=setInterval(function () {
+//                    next()
+//                },2000)
+//            })
+//            $(".prev").click(function () {
+//                $(".banner_wrap .banner:last-child").prependTo(".banner_wrap")
+//                $(".banner_wrap").animate({left:-1000},0,function () {
+//                    $(".banner_wrap").animate({left:0},400)
+//                })
+//            })
+//        })
+    </script>
+</head>
+<body>
+<div class="content">
+    <div class="banner_wrap">
+        <div class="banner"><img src="images/01.jpg" alt=""></div>
+        <div class="banner"><img src="images/02.jpg" alt=""></div>
+        <div class="banner"><img src="images/03.jpg" alt=""></div>
+        <div class="banner"><img src="images/04.jpg" alt=""></div>
+        <!--<div class="banner"><img src="images/01.jpg" alt=""></div>-->
+    </div>
+    <div class="banner_btn">
+        <div class="next">
+            ＞
+        </div>
+        <div class="prev">
+            ＜
+        </div>
+    </div>
+    <div class="dian_btn">
+        <ul>
+            <li class="bian"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

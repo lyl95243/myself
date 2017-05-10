@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标滚轮</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/mousewheel.min.js"></script>
+    <script>
+//        jQuery(function($) {
+//            $('#nav').bind('mousewheel', function(event, delta) {
+//                console.log(event);
+//                console.log(delta);
+//                var dir = delta > 0 ? 'Up' : 'Down';
+//                if (dir == 'Up') {
+//                    console.log("向上滚动");
+//                } else {
+//                    console.log("向下滚动");
+//                }
+//                return false;
+//            });
+//        })
+        $(function () {
+            function scrolWheel() {
+                if (document.addEventListener) {
+                    document.addEventListener("DOMMouseScroll", scroll, false)
+                }
+                window.onmousewheel = document.onmousewheel = scroll;
+            }
+            scrolWheel()
+            //        禁止鼠标滚动事件
+            function disabledMouseWheel() {
+                if (document.addEventListener) {
+                    document.addEventListener('DOMMouseScroll', scrollFunc, false);
+                }//W3C
+                window.onmousewheel = document.onmousewheel = scrollFunc;//IE/Opera/Chrome
+            }
+            function scrollFunc(evt) {
+                return false;
+            }
+            $("#qq").hover(function () {
+                disabledMouseWheel()
+            }, function () {
+                scrolWheel()
+            })
+        })
+    </script>
+</head>
+<body>
+<div id="nav" style="height: 2000px;">
+    <div id="qq" style="width: 100px;height: 100px;background: olive;position: fixed;bottom:100px;top:50%"></div>
+</div>
+</body>
+</html>

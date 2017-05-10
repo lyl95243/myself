@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝平滑滚动</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul li{list-style: none}
+        .wrap{
+            height: 400px;
+            width: 200px;
+            padding: 0 50px;
+            margin:150px auto;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid darkturquoise;
+            overflow: hidden;
+        }
+        .wrap li{
+            width: 200px;
+            height: 130px;
+            line-height: 130px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 800;
+            /*float: left;*/
+        }
+        .b1{background: orange}
+        .b2{background: teal}
+        .b3{background: hotpink}
+        .b4{background: mediumaquamarine}
+        .b5{background: blueviolet}
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <!--<script src="js/scroll.js"></script>-->
+    <script>
+        $(function () {
+//            $('.wrap').myScroll({
+//                speed: 40, //数值越大，速度越慢
+//                rowHeight: 130 //li的高度
+//            });
+            var i=0;
+            function hua() {
+                i++;
+                $(".wrap ul").animate({marginTop:-i*1},0,function () {
+                    if(i>=150){
+                        $(this).find("li").eq(0).appendTo($(this))
+                        $(this).css({marginTop:-20})
+                        i=20
+                    }
+                })
+            }
+           var timer=setInterval(function () {
+                hua()
+            },20)
+            $(".wrap ul").hover(function () {
+                clearInterval(timer)
+            },function () {
+                timer=setInterval(function () {
+                   hua()
+                },20)
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <ul>
+        <li class="b1">1</li>
+        <li class="b2">2</li>
+        <li class="b3">3</li>
+        <li class="b4">4</li>
+        <li class="b5">5</li>
+    </ul>
+</div>
+</body>
+</html>

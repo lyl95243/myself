@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        body{
+            background: black;
+        }
+        .wrap{
+            width: 500px;
+            height: 500px;
+            margin: 150px auto;
+            -ms-transform-style:preserve-3d;
+            -webkit-transform-style:preserve-3d;
+            -moz-transform-style:preserve-3d;
+            position: relative;
+            transform: rotateX(30deg) rotateY(30deg);
+        }
+        .wrap div{
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        .div1{  transform:translateZ(250px) ;  }
+        .div2{  transform:translateZ(-250px);  }
+        .div3{  transform:translateX(-250px) rotateY(-90deg) }
+        .div4{  transform:translateX(250px)  rotateY(90deg) }
+        .div5{  transform:translateY(-250px) rotateX(90deg) }
+        .div6{  transform:translateY(250px) rotateX(-90deg) }
+        .wrap div img{
+            width: 500px;
+            height: 500px;
+            opacity: 0.6;
+            border: 2px solid lawngreen;
+            box-shadow: 0 0 151px lawngreen;
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $(".wrap").mousedown(function (e) {
+                var oEvent=e||event;
+                var  w=oEvent.clientX;
+                var h=oEvent.clientY;
+                $(document).mousemove(function (e) {
+                    var oEvent=e||event;
+                    var x=oEvent.clientY-w;
+                    var y=oEvent.clientX-h;
+                    $(".wrap").css({
+                        transform:"rotateX("+x+"deg) rotateY("+y+"deg)"
+                    })
+                });
+
+                $(document).mouseup(function() {
+//                   $(document).mousemove=null;
+//                   $(document).mouseup=null;
+                    $(document).unbind()
+                });
+                return false
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="div1"><img src="images/01.jpg" alt=""></div>
+    <div class="div2"><img src="images/02.jpg" alt=""></div>
+    <div class="div3"><img src="images/03.jpg" alt=""></div>
+    <div class="div4"><img src="images/04.jpg" alt=""></div>
+    <div class="div5"><img src="images/05.jpg" alt=""></div>
+    <div class="div6"><img src="images/06.jpg" alt=""></div>
+</div>
+</body>
+</html>
