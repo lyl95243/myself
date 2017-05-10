@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: bisque;
+        }
+        .wrap{
+            width: 1490px;
+            height: 500px;
+            margin: 100px auto;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        .wrap ul li{
+            width: 890px;
+            height: 500px;
+            list-style: none;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -445px;
+            transition: 0.5s;
+        }
+        .li1{transform: scale(0.6) translateX(-797px) translateY(0) translateZ(-40px)}
+        .li2{transform: scale(0.8) translateX(-292px) translateY(0) translateZ(-25px)}
+        .li3{transform: scale(1.0) translateX(0) translateY(0) translateZ(0)}
+        .li4{transform: scale(0.8) translateX(292px) translateY(0) translateZ(-25px)}
+        .li5{transform: scale(0.6) translateX(797px) translateY(0) translateZ(-40px)}
+        .wrap ul li img{
+            width: 100%;
+            height: 100%;
+        }
+        .next,.prev{
+            font-size: 70px;
+            position: absolute;
+            top:40%;
+            color:orangered;
+            cursor:pointer;
+        }
+        .next{right: 281px}
+        .prev{left: 281px}
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        $(function () {
+            function next() {
+                $(".wrap ul li").removeClass()
+                $(".wrap ul li:nth-child(1)").addClass("li5")
+                $(".wrap ul li:nth-child(2)").addClass("li1")
+                $(".wrap ul li:nth-child(3)").addClass("li2")
+                $(".wrap ul li:nth-child(4)").addClass("li3")
+                $(".wrap ul li:nth-child(5)").addClass("li4")
+                setTimeout(function () {
+                    $(".wrap ul li:first-child").appendTo(".wrap ul")
+                },550)
+            }
+            function prev() {
+                $(".wrap ul li").removeClass()
+                $(".wrap ul li:nth-child(1)").addClass("li2")
+                $(".wrap ul li:nth-child(2)").addClass("li3")
+                $(".wrap ul li:nth-child(3)").addClass("li4")
+                $(".wrap ul li:nth-child(4)").addClass("li5")
+                $(".wrap ul li:nth-child(5)").addClass("li1")
+                setTimeout(function () {
+                    $(".wrap ul li:last-child").prependTo(".wrap ul")
+                },550)
+            }
+            $(".next").click(function () {
+                next()
+            })
+            $(".prev").click(function () {
+                prev()
+            })
+            $(".wrap ul li").click(function () {
+                var index=$(this).index();
+                console.log(index);
+                if(index!=2){
+                    $(".wrap ul li").removeClass()
+                }
+                if(index==0){
+                    $(this).addClass("li3")
+                    $(".wrap ul li:nth-child(2)").addClass("li4")
+                    $(".wrap ul li:nth-child(3)").addClass("li5")
+                    $(".wrap ul li:nth-child(4)").addClass("li1")
+                    $(".wrap ul li:nth-child(5)").addClass("li2")
+                    setTimeout(function () {
+                        $(".wrap ul li:last-child").prependTo(".wrap ul")
+                    },550)
+                    setTimeout(function () {
+                        $(".wrap ul li:last-child").prependTo(".wrap ul")
+                    },560)
+                }
+                if(index==1){
+                   prev()
+                }
+                if(index==3){
+                    next()
+                }
+                if(index==4){
+                    $(this).addClass("li3")
+                    $(".wrap ul li:nth-child(1)").addClass("li4")
+                    $(".wrap ul li:nth-child(2)").addClass("li5")
+                    $(".wrap ul li:nth-child(3)").addClass("li1")
+                    $(".wrap ul li:nth-child(4)").addClass("li2")
+                    setTimeout(function () {
+                        $(".wrap ul li:first-child").appendTo(".wrap ul")
+                    },550)
+                    setTimeout(function () {
+                        $(".wrap ul li:first-child").appendTo(".wrap ul")
+                    },560)
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <ul>
+        <li class="li1"><img src="images/01.jpg" alt=""></li>
+        <li class="li2"><img src="images/02.jpg" alt=""></li>
+        <li class="li3"><img src="images/06.jpg" alt=""></li>
+        <li class="li4"><img src="images/04.jpg" alt=""></li>
+        <li class="li5"><img src="images/05.jpg" alt=""></li>
+    </ul>
+    <div class="next"> ＞ </div>
+    <div class="prev"> ＜ </div>
+</div>
+</body>
+</html>
